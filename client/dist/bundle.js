@@ -9555,7 +9555,7 @@ var App = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          'p',
+          'h1',
           null,
           'Hello'
         )
