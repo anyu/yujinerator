@@ -3,6 +3,7 @@ import Header from './Header';
 import Nav from './Nav';
 import Quote from './Quote';
 import SubmitQuote from './SubmitQuote';
+import TinyNav from './TinyNav';
 
 import ReactDOM from 'react-dom';
 
@@ -29,9 +30,11 @@ class App extends React.Component {
       <div>
         <div id="container">
           <Header />
-          <Nav jinButtons = { jinMoods } toggleSubmitQuote = { this.toggleSubmitQuote }/>
+          <hr />
+          <Nav jinButtons = { jinMoods } />
           <Quote data = {this.props.data} />
           { this.state.submitQuoteshowComponent && <SubmitQuote /> }
+          <TinyNav toggleSubmitQuote = { this.toggleSubmitQuote } />
         </div>
       </div>
     )

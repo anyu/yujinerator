@@ -11,12 +11,12 @@ class Quote extends React.Component {
   render() {
     var randomNum = Math.floor(Math.random() * (this.props.data.length));
     return (
+
       <div className="quote-blurb">
-        <ul>
-          <p className="giant-quotemarks">‘</p>
-            { this.props.data[randomNum].message }
-          <p className="giant-quotemarks">’</p>
-        </ul>
+
+          <p className="leftQuoteMark"></p>
+            <p className="message">{ this.props.data[randomNum].message }</p>
+          <p className="rightQuoteMark"></p>
       </div>
     )
   }

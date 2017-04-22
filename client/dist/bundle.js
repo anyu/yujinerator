@@ -9600,6 +9600,10 @@ var _SubmitQuote = __webpack_require__(87);
 
 var _SubmitQuote2 = _interopRequireDefault(_SubmitQuote);
 
+var _TinyNav = __webpack_require__(188);
+
+var _TinyNav2 = _interopRequireDefault(_TinyNav);
+
 var _reactDom = __webpack_require__(51);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -9646,9 +9650,11 @@ var App = function (_React$Component) {
           'div',
           { id: 'container' },
           _react2.default.createElement(_Header2.default, null),
-          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods, toggleSubmitQuote: this.toggleSubmitQuote }),
+          _react2.default.createElement('hr', null),
+          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods }),
           _react2.default.createElement(_Quote2.default, { data: this.props.data }),
-          this.state.submitQuoteshowComponent && _react2.default.createElement(_SubmitQuote2.default, null)
+          this.state.submitQuoteshowComponent && _react2.default.createElement(_SubmitQuote2.default, null),
+          _react2.default.createElement(_TinyNav2.default, { toggleSubmitQuote: this.toggleSubmitQuote })
         )
       );
     }
@@ -9678,9 +9684,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Header = function Header(props) {
   return _react2.default.createElement(
-    'h1',
-    null,
-    'yujinerator'
+    "div",
+    { id: "header" },
+    _react2.default.createElement(
+      "h1",
+      null,
+      "yujinerator"
+    ),
+    _react2.default.createElement(
+      "h4",
+      null,
+      "What would Yujin say?"
+    )
   );
 };
 
@@ -9710,11 +9725,6 @@ var Nav = function Nav(props) {
     _react2.default.createElement(
       "ul",
       null,
-      _react2.default.createElement(
-        "div",
-        { id: "step-one" },
-        "Pick a Jin mood"
-      ),
       props.jinButtons.map(function (type, index) {
         return _react2.default.createElement(
           "button",
@@ -9722,15 +9732,6 @@ var Nav = function Nav(props) {
           type
         );
       })
-    ),
-    _react2.default.createElement(
-      "div",
-      null,
-      _react2.default.createElement(
-        "a",
-        { href: "/", onClick: props.toggleSubmitQuote },
-        "Submit a quote"
-      )
     )
   );
 };
@@ -9783,21 +9784,13 @@ var Quote = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         { className: "quote-blurb" },
+        _react2.default.createElement("p", { className: "leftQuoteMark" }),
         _react2.default.createElement(
-          "ul",
-          null,
-          _react2.default.createElement(
-            "p",
-            { className: "giant-quotemarks" },
-            "\u2018"
-          ),
-          this.props.data[randomNum].message,
-          _react2.default.createElement(
-            "p",
-            { className: "giant-quotemarks" },
-            "\u2019"
-          )
-        )
+          "p",
+          { className: "message" },
+          this.props.data[randomNum].message
+        ),
+        _react2.default.createElement("p", { className: "rightQuoteMark" })
       );
     }
   }]);
@@ -9849,7 +9842,12 @@ var SubmitQuote = function (_React$Component) {
         { className: "quote" },
         _react2.default.createElement(
           "form",
-          null,
+          { id: "submitQuote" },
+          _react2.default.createElement(
+            "h4",
+            null,
+            "Get sassed by Yujin? You're not alone. Share your story."
+          ),
           _react2.default.createElement("input", { type: "text", id: "quote-jinMood", placeholder: "Enter a mood" }),
           _react2.default.createElement("textarea", { id: "quote-submission", placeholder: "Enter a quote..." }),
           _react2.default.createElement(
@@ -22346,6 +22344,41 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(17);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TinyNav = function TinyNav(props) {
+  return _react2.default.createElement(
+    "footer",
+    null,
+    _react2.default.createElement(
+      "div",
+      null,
+      _react2.default.createElement(
+        "a",
+        { href: "/", onClick: props.toggleSubmitQuote },
+        "Submit a quote"
+      )
+    )
+  );
+};
+
+exports.default = TinyNav;
 
 /***/ })
 /******/ ]);

@@ -5,13 +5,35 @@ body {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: normal;
 }
 
 p {
   color: white;
 }
 
+hr {
+  width: 660px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 button {
 	cursor: pointer;
 	text-align: center;
@@ -31,16 +53,20 @@ button:hover {
 	color: white;
 }
 
+#header {
+  margin-bottom: 60px;
+}
+
 #container {
   text-align: center;
-  width: 900px;
+  width: 860px;
   margin: auto;
 }
 
 #quote-submission {
   font-size: 16px;
   display: block;
-  width: 450px;
+  width: 100%;
   height: 120px;
   border: none;
   padding: 10px;
@@ -55,22 +81,59 @@ button:hover {
   border: none;
 }
 
-p.giant-quotemarks {
-  font-size: 100px;
-  line-height: 20px;
-  font-weight: 900;
-  margin-bottom: 20px;
-  padding: 0px;
+p.leftQuoteMark {
+  background-image: url('/images/leftquote.png');
+  background-repeat: no-repeat;
+  width: 80px;
+  height: 70px;
+  margin-top: 30px;
+  float: left;
+}
+
+p.rightQuoteMark {
+  background-image: url('/images/rightquote.png');
+  background-repeat: no-repeat;
+  width: 80px;
+  height: 70px;
+  margin-top: 40px;
+  float: right;
+}
+
+#submitQuote {
+  clear: both;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+}
+
+.message {
+  width: 600px;
+  display: inline-block;
+  font-size: 28px;
+  line-height: 40px;
 }
 
 .quote-blurb {
   font-size: 18px;
   line-height: 25px;
-  width: 700px;
   text-align: center;
-  margin: auto;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#submit-quote {
+  float: right;
+
 }
 
 .step-one {
   float: left;
+}
+
+footer {
+  clear: both;
+  margin-top: 150px;
+  margin-bottom: 120px;
 }
