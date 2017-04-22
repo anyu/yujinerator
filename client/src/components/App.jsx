@@ -4,15 +4,20 @@ import Nav from './Nav';
 import Quote from './Quote';
 import SubmitQuote from './SubmitQuote';
 
+import ReactDOM from 'react-dom';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-     submitQuoteshowComponent: false,
-   };
+      submitQuoteshowComponent: false,
+    },
+    this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this)
   }
 
-  handleSubmitQuoteClick() {
+  toggleSubmitQuote(e) {
+    { /* prevent link from navigating */}
+    e.preventDefault();
     this.setState({
       submitQuoteshowComponent: !this.state.submitQuoteshowComponent,
     });
@@ -24,8 +29,8 @@ class App extends React.Component {
       <div>
         <div id="container">
           <Header />
-          <Nav jinButtons = { jinTypes } />
-
+          <Nav jinButtons = { jinTypes } toggleSubmitQuote = { this.toggleSubmitQuote }/>
+          { this.state.submitQuoteshowComponent && <SubmitQuote /> }
         <Quote />
 
         </div>

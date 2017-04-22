@@ -4,8 +4,9 @@ var Nav = (props) => (
   <div className="jin-types">
     <ul>
       <div id ="step-one">Pick a Jin</div>
-      {props.jinButtons.map(function(type){
-        return <button>{type}</button>;
+        <div><a href="/" onClick = { props.toggleSubmitQuote } >Submit a quote</a></div>
+      {props.jinButtons.map(function(type, index){
+        return <button key = {index} >{type}</button>;
       })}
     </ul>
 
