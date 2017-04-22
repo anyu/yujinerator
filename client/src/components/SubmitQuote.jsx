@@ -11,7 +11,13 @@ class SubmitQuote extends React.Component {
         <form id = "submitQuote">
           <h4>Get sassed by Yujin? You're not alone. Share your story.</h4>
 
-          <input type = "text" id = "quote-jinMood" placeholder = "Enter a mood" />
+          <label>Pick a JIN mood</label>
+            <select class="dropdown">
+             <option value="grapefruit">ClassicJin</option>
+             <option value="lime">Ragejin</option>
+             <option value="coconut">NiceJin</option>
+             <option value="mango">U-JEAN</option>
+           </select>
           <textarea id = "quote-submission" placeholder = "Enter a quote..."  ></textarea>
           <button id = "submit-quote">Submit</button>
         </form>

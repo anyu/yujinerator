@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+
 const PORT = process.env.PORT || 8080;
 const IP = '127.0.0.1';
 const app = express();
@@ -21,3 +22,5 @@ app.get('/', function(req, res) {
 app.post('/', function (req, res) {
   res.send('Got a POST request')
 })
+
+// app.post('/submitquote', submitQuote);

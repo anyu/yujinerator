@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitQuoteshowComponent: true,
+      submitQuoteshowComponent: false,
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this)
   }

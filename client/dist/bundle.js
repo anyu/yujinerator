@@ -9566,7 +9566,7 @@ module.exports = [
   },
   {
   "mood": "Classic Jin",
-  "message": "Can't sleep? You should take up smoking",
+  "message": "Can't sleep? You should take up smoking.",
   },
   {
   "mood": "Classic Jin",
@@ -9576,6 +9576,18 @@ module.exports = [
   "mood": "Classic Jin",
   "message": "Got a yujin problem? Never a bad problem to have.",
   },
+  {
+  "mood": "Classic Jin",
+  "message": "You digusting human.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "I never get tired of Panda Express.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "I'm not playing. I don't want to humiliate you all.",
+  }
 ]
 
 
@@ -9637,7 +9649,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      submitQuoteshowComponent: true
+      submitQuoteshowComponent: false
     }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this);
     return _this;
   }
@@ -9706,7 +9718,7 @@ var Header = function Header(props) {
     _react2.default.createElement(
       "h4",
       null,
-      "What would Yujin say?"
+      "Shit Yujin says"
     )
   );
 };
@@ -9781,12 +9793,7 @@ var Quote = function (_React$Component) {
   function Quote(props) {
     _classCallCheck(this, Quote);
 
-    var _this = _possibleConstructorReturn(this, (Quote.__proto__ || Object.getPrototypeOf(Quote)).call(this, props));
-
-    _this.state = {
-      showComponent: false
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Quote.__proto__ || Object.getPrototypeOf(Quote)).call(this, props));
   }
 
   _createClass(Quote, [{
@@ -9860,7 +9867,35 @@ var SubmitQuote = function (_React$Component) {
             null,
             "Get sassed by Yujin? You're not alone. Share your story."
           ),
-          _react2.default.createElement("input", { type: "text", id: "quote-jinMood", placeholder: "Enter a mood" }),
+          _react2.default.createElement(
+            "label",
+            null,
+            "Pick a JIN mood"
+          ),
+          _react2.default.createElement(
+            "select",
+            { "class": "dropdown" },
+            _react2.default.createElement(
+              "option",
+              { value: "grapefruit" },
+              "ClassicJin"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "lime" },
+              "Ragejin"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "coconut" },
+              "NiceJin"
+            ),
+            _react2.default.createElement(
+              "option",
+              { value: "mango" },
+              "U-JEAN"
+            )
+          ),
           _react2.default.createElement("textarea", { id: "quote-submission", placeholder: "Enter a quote..." }),
           _react2.default.createElement(
             "button",

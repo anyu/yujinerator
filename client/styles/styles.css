@@ -132,8 +132,19 @@ p.rightQuoteMark {
   float: left;
 }
 
+select {
+  border: none;
+  font-size: 14px;
+  padding: 20px;
+  margin: 10px;
+  width: 25%;
+  height: 20px;
+  cursor: pointer;
+}
+
 footer {
   clear: both;
   margin-top: 150px;
   margin-bottom: 120px;
+  /*background: #05353c;*/
 }

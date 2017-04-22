@@ -41,7 +41,7 @@ module.exports = [
   },
   {
   "mood": "Classic Jin",
-  "message": "Can't sleep? You should take up smoking",
+  "message": "Can't sleep? You should take up smoking.",
   },
   {
   "mood": "Classic Jin",
@@ -51,4 +51,16 @@ module.exports = [
   "mood": "Classic Jin",
   "message": "Got a yujin problem? Never a bad problem to have.",
   },
+  {
+  "mood": "Classic Jin",
+  "message": "You digusting human.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "I never get tired of Panda Express.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "I'm not playing. I don't want to humiliate you all.",
+  }
 ]
