@@ -30,7 +30,7 @@ class App extends React.Component {
         <div id="container">
           <Header />
           <Nav jinButtons = { jinMoods } toggleSubmitQuote = { this.toggleSubmitQuote }/>
-          <Quote/>
+          <Quote data = {this.props.data} />
           { this.state.submitQuoteshowComponent && <SubmitQuote /> }
         </div>
       </div>
