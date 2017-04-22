@@ -39,4 +39,16 @@ module.exports = [
   "mood": "Classic Jin",
   "message": "Ughh Tabitha.",
   },
+  {
+  "mood": "Classic Jin",
+  "message": "Can't sleep? You should take up smoking",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "I need someone else to smoke with besides Prateek. It's getting old really fast.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "Got a yujin problem? Never a bad problem to have.",
+  },
 ]
