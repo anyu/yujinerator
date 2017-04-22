@@ -3,5 +3,9 @@ import ReactDOM from 'react-dom';
 
 import App from './components/App';
 
+var quotes = [{
+  "mood": "Rajin",
+  "message": "TABITHAAAAAAA!!!!",
+}]
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App data = { quotes }/>, document.getElementById('app'));

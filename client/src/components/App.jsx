@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitQuoteshowComponent: false,
+      submitQuoteshowComponent: true,
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this)
   }
@@ -24,15 +24,14 @@ class App extends React.Component {
   }
 
   render() {
-    var jinTypes = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'U-Jean'];
+    var jinMoods = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'U-Jean'];
     return (
       <div>
         <div id="container">
           <Header />
-          <Nav jinButtons = { jinTypes } toggleSubmitQuote = { this.toggleSubmitQuote }/>
+          <Nav jinButtons = { jinMoods } toggleSubmitQuote = { this.toggleSubmitQuote }/>
+          <Quote/>
           { this.state.submitQuoteshowComponent && <SubmitQuote /> }
-        <Quote />
-
         </div>
       </div>
     )

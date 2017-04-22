@@ -12,21 +12,18 @@ p {
   color: white;
 }
 
-input {
-  
-}
-
 button {
 	cursor: pointer;
 	text-align: center;
   margin: 10px;
-  /*font-size: 14px;
+  margin-top: 40px;
+  font-size: 14px;
 	text-decoration: none;
 	padding: 10px 30px;
 	border-radius: 5px;
 	color: #0a7483;
 	background-color: white;
-	border: 1px solid white; */
+	border: none;
 }
 
 button:hover {
@@ -40,6 +37,24 @@ button:hover {
   margin: auto;
 }
 
+#quote-submission {
+  font-size: 16px;
+  display: block;
+  width: 450px;
+  height: 120px;
+  border: none;
+  padding: 10px;
+}
+
+#quote-jinMood {
+  font-size: 16px;
+  display: block;
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+}
+
 p.giant-quotemarks {
   font-size: 100px;
   line-height: 20px;
@@ -48,14 +63,14 @@ p.giant-quotemarks {
   padding: 0px;
 }
 
-.quote {
+.quote-blurb {
   font-size: 18px;
   line-height: 25px;
   width: 700px;
   text-align: center;
   margin: auto;
 }
+
 .step-one {
-  /*text-align: left;*/
   float: left;
 }

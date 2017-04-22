@@ -9,12 +9,11 @@ class Quote extends React.Component {
   }
 
   render() {
-    var jinTypes = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'U-Jean'];
     return (
-      <div className="quote">
+      <div className="quote-blurb">
         <ul>
           <p className="giant-quotemarks">‘</p>
-          <p>TABITHAAAAAAA!!!!</p>
+          {  }
           <p className="giant-quotemarks">’</p>
         </ul>
       </div>

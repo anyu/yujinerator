@@ -9573,7 +9573,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      submitQuoteshowComponent: false
+      submitQuoteshowComponent: true
     }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this);
     return _this;
   }
@@ -9590,7 +9590,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var jinTypes = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'U-Jean'];
+      var jinMoods = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'U-Jean'];
       return _react2.default.createElement(
         'div',
         null,
@@ -9598,9 +9598,9 @@ var App = function (_React$Component) {
           'div',
           { id: 'container' },
           _react2.default.createElement(_Header2.default, null),
-          _react2.default.createElement(_Nav2.default, { jinButtons: jinTypes, toggleSubmitQuote: this.toggleSubmitQuote }),
-          this.state.submitQuoteshowComponent && _react2.default.createElement(_SubmitQuote2.default, null),
-          _react2.default.createElement(_Quote2.default, null)
+          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods, toggleSubmitQuote: this.toggleSubmitQuote }),
+          _react2.default.createElement(_Quote2.default, null),
+          this.state.submitQuoteshowComponent && _react2.default.createElement(_SubmitQuote2.default, null)
         )
       );
     }
@@ -9658,14 +9658,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Nav = function Nav(props) {
   return _react2.default.createElement(
     "div",
-    { className: "jin-types" },
+    { className: "jinMood" },
     _react2.default.createElement(
       "ul",
       null,
       _react2.default.createElement(
         "div",
         { id: "step-one" },
-        "Pick a Jin"
+        "Pick a Jin mood"
       ),
       _react2.default.createElement(
         "div",
@@ -9729,29 +9729,23 @@ var Quote = function (_React$Component) {
   }
 
   _createClass(Quote, [{
-    key: 'render',
+    key: "render",
     value: function render() {
-      var jinTypes = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'U-Jean'];
       return _react2.default.createElement(
-        'div',
-        { className: 'quote' },
+        "div",
+        { className: "quote-blurb" },
         _react2.default.createElement(
-          'ul',
+          "ul",
           null,
           _react2.default.createElement(
-            'p',
-            { className: 'giant-quotemarks' },
-            '\u2018'
+            "p",
+            { className: "giant-quotemarks" },
+            "\u2018"
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            'TABITHAAAAAAA!!!!'
-          ),
-          _react2.default.createElement(
-            'p',
-            { className: 'giant-quotemarks' },
-            '\u2019'
+            "p",
+            { className: "giant-quotemarks" },
+            "\u2019"
           )
         )
       );
@@ -9804,9 +9798,10 @@ var SubmitQuote = function (_React$Component) {
         "div",
         { className: "quote" },
         _react2.default.createElement(
-          "ul",
+          "form",
           null,
-          _react2.default.createElement("input", { id: "quote" }),
+          _react2.default.createElement("input", { type: "text", id: "quote-jinMood", placeholder: "Enter a mood" }),
+          _react2.default.createElement("textarea", { id: "quote-submission", placeholder: "Enter a quote..." }),
           _react2.default.createElement(
             "button",
             { id: "submit-quote" },
@@ -9843,7 +9838,12 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
+var quotes = [{
+  "mood": "Rajin",
+  "message": "TABITHAAAAAAA!!!!"
+}];
+
+_reactDom2.default.render(_react2.default.createElement(_App2.default, { data: quotes }), document.getElementById('app'));
 
 /***/ }),
 /* 88 */
