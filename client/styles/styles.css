@@ -11,3 +11,51 @@ h1 {
 p {
   color: white;
 }
+
+input {
+  
+}
+
+button {
+	cursor: pointer;
+	text-align: center;
+  margin: 10px;
+  /*font-size: 14px;
+	text-decoration: none;
+	padding: 10px 30px;
+	border-radius: 5px;
+	color: #0a7483;
+	background-color: white;
+	border: 1px solid white; */
+}
+
+button:hover {
+	background-color: #0a7483;
+	color: white;
+}
+
+#container {
+  text-align: center;
+  width: 900px;
+  margin: auto;
+}
+
+p.giant-quotemarks {
+  font-size: 100px;
+  line-height: 20px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  padding: 0px;
+}
+
+.quote {
+  font-size: 18px;
+  line-height: 25px;
+  width: 700px;
+  text-align: center;
+  margin: auto;
+}
+.step-one {
+  /*text-align: left;*/
+  float: left;
+}
