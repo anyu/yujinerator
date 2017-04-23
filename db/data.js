@@ -62,5 +62,17 @@ module.exports = [
   {
   "mood": "Classic Jin",
   "message": "I'm not playing. I don't want to humiliate you all.",
-  }
+  },
+  {
+  "mood": "Jin on tap",
+  "message": "I drink wine every day, but I don't know anything about wine.",
+  },
+  {
+  "mood": "Jin on tap",
+  "message": "I should start looking into boxed wine.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "A sandwich looks so complicated to make.",
+  },
 ]

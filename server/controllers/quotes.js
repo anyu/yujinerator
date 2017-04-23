@@ -1,8 +1,6 @@
 var db = require('../config');
 var Quote = require('../models/quote');
-var axios = require('axios');
-
-
+// var axios = require('axios');
 
 exports.submitQuote = function (req, res) {
   var mood = res.body.mood;
