@@ -1,6 +1,6 @@
 var db = require('../config');
 var Quote = require('../models/quote');
-// var axios = require('axios');
+
 
 exports.submitQuote = function (req, res) {
   var mood = res.body.mood;
@@ -10,11 +10,11 @@ exports.submitQuote = function (req, res) {
     mood: mood,
     message: msg
   })
-  
+
   newQuote.save(function(err) {
     if(err) { console.log("Error saving quote") }
   })
-  res.render('/', {
-    console.log('Quote submitted');
-  });
+
+  console.log('Quote submitted');
+
 };

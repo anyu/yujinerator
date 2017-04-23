@@ -4,7 +4,7 @@ import Nav from './Nav';
 import Quote from './Quote';
 import SubmitQuote from './SubmitQuote';
 import TinyNav from './TinyNav';
-import axios from 'axios';
+import axios from 'axios/dist/axios';
 
 import ReactDOM from 'react-dom';
 
@@ -17,8 +17,7 @@ class App extends React.Component {
       quoteText: ''
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
-    this.collectQuote = this.collectQuote.bind(this),
-    this.collectMood = this.collectMood.bind(this)
+    this.collectQuote = this.collectQuote.bind(this)
   }
 
   toggleSubmitQuote(e) {
@@ -28,28 +27,24 @@ class App extends React.Component {
       submitQuoteshowComponent: !this.state.submitQuoteshowComponent
     });
   }
-// TODO: merge collect methods to one form collection that takes in 2 args
-  collectMood(mood) {
-    // e.preventDefault();
-    console.log('mood', mood)
+
+  collectQuote(text, mood) {
     this.setState({
+      quoteText: text,
       mood: mood
     });
-  }
-
-  // pass in value to axios. axios posts content to /submitquote endpoint
-  // axios.post('/submitquote', this.state.quoteText);
-
-  collectQuote(text) {
-    // e.preventDefault();
-    console.log('msg', text)
-    this.setState({
-      quoteText: text
+    axios.post('/submitquote', {
+      message: this.state.quoteText,
+      mood: this.state.mood
+    })
+    .then(function(response) {
+      console.log(response)
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-
-    // pass in value to axios. axios posts content to /submitquote endpoint
-    // axios.post('/submitquote', this.state.quoteText);
   }
+
 
   render() {
     var jinMoods = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'Eugene'];

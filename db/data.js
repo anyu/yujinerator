@@ -1,9 +1,5 @@
 module.exports = [
   {
-  "mood": "Rajin",
-  "message": "STOP CALLING ME U-JEAN",
-  },
-  {
   "mood": "Classic Jin",
   "message": "Hmm. Interesting.",
   },
@@ -13,15 +9,19 @@ module.exports = [
   },
   {
   "mood": "Classic Jin",
+  "message": "I'm a fantastic girlfriend.",
+  },
+  {
+  "mood": "Classic Jin",
   "message": "Why wouldn't you want a daughter like me.",
   },
   {
   "mood": "Classic Jin",
-  "message": "Yujin's a goddess.",
+  "message": "you're still on the sprint? we're done.",
   },
   {
-  "mood": "Classic Jin",
-  "message": "you're still on the sprint? we're done.",
+  "mood": "Rajin",
+  "message": "STOP CALLING ME EUGENE",
   },
   {
   "mood": "Classic Jin",
@@ -49,15 +49,15 @@ module.exports = [
   },
   {
   "mood": "Classic Jin",
-  "message": "Got a yujin problem? Never a bad problem to have.",
+  "message": "A yujin problem? Never a bad problem to have.",
   },
   {
   "mood": "Classic Jin",
-  "message": "You digusting human.",
+  "message": "Digusting human.",
   },
   {
   "mood": "Classic Jin",
-  "message": "I never get tired of Panda Express.",
+  "message": "I could never get tired of Panda Express.",
   },
   {
   "mood": "Classic Jin",
@@ -75,4 +75,12 @@ module.exports = [
   "mood": "Classic Jin",
   "message": "A sandwich looks so complicated to make.",
   },
+  {
+  "mood": "Classic Jin",
+  "message": "Why...why the fuck would I want to play basketball with you guys.",
+  },
+  {
+  "mood": "Classic Jin",
+  "message": "Dammit, I should've screwed Tabitha over.",
+  }
 ]
