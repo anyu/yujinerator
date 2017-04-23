@@ -13,10 +13,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       submitQuoteshowComponent: false,
+      mood: '',
       quoteText: ''
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
-    this.collectQuote = this.collectQuote.bind(this)
+    this.collectQuote = this.collectQuote.bind(this),
+    this.collectMood = this.collectMood.bind(this)
   }
 
   toggleSubmitQuote(e) {
@@ -26,16 +28,27 @@ class App extends React.Component {
       submitQuoteshowComponent: !this.state.submitQuoteshowComponent
     });
   }
-
-  collectQuote(e) {
-    e.preventDefault();
-    console.log(e.target.value)
+// TODO: merge collect methods to one form collection that takes in 2 args
+  collectMood(mood) {
+    // e.preventDefault();
+    console.log('mood', mood)
     this.setState({
-      quoteText: e.target.value
+      mood: mood
+    });
+  }
+
+  // pass in value to axios. axios posts content to /submitquote endpoint
+  // axios.post('/submitquote', this.state.quoteText);
+
+  collectQuote(text) {
+    // e.preventDefault();
+    console.log('msg', text)
+    this.setState({
+      quoteText: text
     });
 
     // pass in value to axios. axios posts content to /submitquote endpoint
-    axios.post('/submitquote', this.state.quoteText);
+    // axios.post('/submitquote', this.state.quoteText);
   }
 
   render() {
@@ -47,7 +60,7 @@ class App extends React.Component {
           <hr />
           <Nav jinButtons = { jinMoods } />
           <Quote data = {this.props.data} />
-          { this.state.submitQuoteshowComponent && <SubmitQuote collectQuote = { this.collectQuote } /> }
+          { this.state.submitQuoteshowComponent && < SubmitQuote quoteText = { this.state.quoteText } mood = { this.state.mood } collectQuote = { this.collectQuote } collectMood = { this.collectMood }/> }
           <TinyNav toggleSubmitQuote = { this.toggleSubmitQuote } />
         </div>
       </div>

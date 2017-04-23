@@ -10,6 +10,7 @@ exports.submitQuote = function (req, res) {
     mood: mood,
     message: msg
   })
+  
   newQuote.save(function(err) {
     if(err) { console.log("Error saving quote") }
   })
