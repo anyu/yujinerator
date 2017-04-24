@@ -23,5 +23,5 @@ app.get('/', function(req, res) {
 app.post('/', function (req, res) {
   res.send('Got a POST request')
 })
-app.get('/submitquote', quotes.getQuote);
-app.post('/submitquote', quotes.submitQuote);
+app.get('/quote', quotes.getQuote);
+app.post('/quote', quotes.submitQuote);

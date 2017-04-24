@@ -10323,6 +10323,10 @@ var _reactDom = __webpack_require__(53);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _reactAddonsTransitionGroup = __webpack_require__(323);
+
+var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
+
 var _axios = __webpack_require__(91);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -10394,10 +10398,15 @@ var App = function (_React$Component) {
         submitSuccessComponent: !this.state.submitSuccessComponent
       });
     }
+
+    // DO I NEED TO WRAP THIS IN COMPONENT DID MOUNT ?!
+
   }, {
     key: 'getQuote',
     value: function getQuote() {
-      _axios2.default.get('/submitquote').then(function (response) {
+      _axios2.default.get('/quote', function (data) {
+        console.log(data);
+      }).then(function (response) {
         console.log(response), this.setState({
           quoteText: response.data.quoteText,
           mood: response.data.mood
@@ -10415,7 +10424,7 @@ var App = function (_React$Component) {
         submitSuccessComponent: true,
         submitQuoteShowComponent: false
       });
-      _axios2.default.post('/submitquote', {
+      _axios2.default.post('/quote', {
         message: this.state.quoteText,
         mood: this.state.mood
       }).then(function (response) {
@@ -10439,7 +10448,8 @@ var App = function (_React$Component) {
           _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods }),
           _react2.default.createElement(_Quote2.default, { data: this.props.data,
             quoteText: this.state.quoteText,
-            mood: this.state.mood }),
+            mood: this.state.mood,
+            getQuote: this.getQuote }),
           this.state.submitQuoteShowComponent && _react2.default.createElement(_SubmitQuote2.default, {
             quoteText: this.state.quoteText,
             mood: this.state.mood,
@@ -11418,7 +11428,7 @@ var Quote = function (_React$Component) {
         _react2.default.createElement(
           "p",
           { className: "message" },
-          this.props.getQuote
+          this.props.getQuote()
         ),
         _react2.default.createElement("p", { className: "rightQuoteMark" })
       );
@@ -26251,6 +26261,440 @@ var SubmitSuccess = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = SubmitSuccess;
+
+/***/ }),
+/* 323 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(325);
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var flattenChildren = __webpack_require__(326);
+
+var ReactTransitionChildMapping = {
+  /**
+   * Given `this.props.children`, return an object mapping key to child. Just
+   * simple syntactic sugar around flattenChildren().
+   *
+   * @param {*} children `this.props.children`
+   * @param {number=} selfDebugID Optional debugID of the current internal instance.
+   * @return {object} Mapping of key to child
+   */
+  getChildMapping: function (children, selfDebugID) {
+    if (!children) {
+      return children;
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      return flattenChildren(children, selfDebugID);
+    }
+
+    return flattenChildren(children);
+  },
+
+  /**
+   * When you're adding or removing children some may be added or removed in the
+   * same render pass. We want to show *both* since we want to simultaneously
+   * animate elements in and out. This function takes a previous set of keys
+   * and a new set of keys and merges them with its best guess of the correct
+   * ordering. In the future we may expose some of the utilities in
+   * ReactMultiChild to make this easy, but for now React itself does not
+   * directly have this concept of the union of prevChildren and nextChildren
+   * so we implement it here.
+   *
+   * @param {object} prev prev children as returned from
+   * `ReactTransitionChildMapping.getChildMapping()`.
+   * @param {object} next next children as returned from
+   * `ReactTransitionChildMapping.getChildMapping()`.
+   * @return {object} a key set that contains all keys in `prev` and all keys
+   * in `next` in a reasonable order.
+   */
+  mergeChildMappings: function (prev, next) {
+    prev = prev || {};
+    next = next || {};
+
+    function getValueForKey(key) {
+      if (next.hasOwnProperty(key)) {
+        return next[key];
+      } else {
+        return prev[key];
+      }
+    }
+
+    // For each key of `next`, the list of keys to insert before that key in
+    // the combined list
+    var nextKeysPending = {};
+
+    var pendingKeys = [];
+    for (var prevKey in prev) {
+      if (next.hasOwnProperty(prevKey)) {
+        if (pendingKeys.length) {
+          nextKeysPending[prevKey] = pendingKeys;
+          pendingKeys = [];
+        }
+      } else {
+        pendingKeys.push(prevKey);
+      }
+    }
+
+    var i;
+    var childMapping = {};
+    for (var nextKey in next) {
+      if (nextKeysPending.hasOwnProperty(nextKey)) {
+        for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+          var pendingNextKey = nextKeysPending[nextKey][i];
+          childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+        }
+      }
+      childMapping[nextKey] = getValueForKey(nextKey);
+    }
+
+    // Finally, add the keys which didn't appear before any key in `next`
+    for (i = 0; i < pendingKeys.length; i++) {
+      childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+    }
+
+    return childMapping;
+  }
+};
+
+module.exports = ReactTransitionChildMapping;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _assign = __webpack_require__(4);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var React = __webpack_require__(21);
+var ReactTransitionChildMapping = __webpack_require__(324);
+
+var propTypesFactory = __webpack_require__(62);
+var PropTypes = propTypesFactory(React.isValidElement);
+
+var emptyFunction = __webpack_require__(10);
+
+/**
+ * A basis for animations. When children are declaratively added or removed,
+ * special lifecycle hooks are called.
+ * See https://facebook.github.io/react/docs/animation.html#low-level-api-reacttransitiongroup
+ */
+
+var ReactTransitionGroup = function (_React$Component) {
+  _inherits(ReactTransitionGroup, _React$Component);
+
+  function ReactTransitionGroup() {
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ReactTransitionGroup);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.state = {
+      // TODO: can we get useful debug information to show at this point?
+      children: ReactTransitionChildMapping.getChildMapping(_this.props.children)
+    }, _this.performAppear = function (key) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      var component = _this.refs[key];
+
+      if (component.componentWillAppear) {
+        component.componentWillAppear(_this._handleDoneAppearing.bind(_this, key));
+      } else {
+        _this._handleDoneAppearing(key);
+      }
+    }, _this._handleDoneAppearing = function (key) {
+      var component = _this.refs[key];
+      if (component.componentDidAppear) {
+        component.componentDidAppear();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = ReactTransitionChildMapping.getChildMapping(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully appeared. Remove it.
+        _this.performLeave(key);
+      }
+    }, _this.performEnter = function (key) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      var component = _this.refs[key];
+
+      if (component.componentWillEnter) {
+        component.componentWillEnter(_this._handleDoneEntering.bind(_this, key));
+      } else {
+        _this._handleDoneEntering(key);
+      }
+    }, _this._handleDoneEntering = function (key) {
+      var component = _this.refs[key];
+      if (component.componentDidEnter) {
+        component.componentDidEnter();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = ReactTransitionChildMapping.getChildMapping(_this.props.children);
+
+      if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+        // This was removed before it had fully entered. Remove it.
+        _this.performLeave(key);
+      }
+    }, _this.performLeave = function (key) {
+      _this.currentlyTransitioningKeys[key] = true;
+
+      var component = _this.refs[key];
+      if (component.componentWillLeave) {
+        component.componentWillLeave(_this._handleDoneLeaving.bind(_this, key));
+      } else {
+        // Note that this is somewhat dangerous b/c it calls setState()
+        // again, effectively mutating the component before all the work
+        // is done.
+        _this._handleDoneLeaving(key);
+      }
+    }, _this._handleDoneLeaving = function (key) {
+      var component = _this.refs[key];
+
+      if (component.componentDidLeave) {
+        component.componentDidLeave();
+      }
+
+      delete _this.currentlyTransitioningKeys[key];
+
+      var currentChildMapping = ReactTransitionChildMapping.getChildMapping(_this.props.children);
+
+      if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
+        // This entered again before it fully left. Add it again.
+        _this.performEnter(key);
+      } else {
+        _this.setState(function (state) {
+          var newChildren = _assign({}, state.children);
+          delete newChildren[key];
+          return { children: newChildren };
+        });
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  ReactTransitionGroup.prototype.componentWillMount = function componentWillMount() {
+    this.currentlyTransitioningKeys = {};
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+  };
+
+  ReactTransitionGroup.prototype.componentDidMount = function componentDidMount() {
+    var initialChildMapping = this.state.children;
+    for (var key in initialChildMapping) {
+      if (initialChildMapping[key]) {
+        this.performAppear(key);
+      }
+    }
+  };
+
+  ReactTransitionGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var nextChildMapping = ReactTransitionChildMapping.getChildMapping(nextProps.children);
+    var prevChildMapping = this.state.children;
+
+    this.setState({
+      children: ReactTransitionChildMapping.mergeChildMappings(prevChildMapping, nextChildMapping)
+    });
+
+    var key;
+
+    for (key in nextChildMapping) {
+      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
+      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
+        this.keysToEnter.push(key);
+      }
+    }
+
+    for (key in prevChildMapping) {
+      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(key);
+      if (prevChildMapping[key] && !hasNext && !this.currentlyTransitioningKeys[key]) {
+        this.keysToLeave.push(key);
+      }
+    }
+
+    // If we want to someday check for reordering, we could do it here.
+  };
+
+  ReactTransitionGroup.prototype.componentDidUpdate = function componentDidUpdate() {
+    var keysToEnter = this.keysToEnter;
+    this.keysToEnter = [];
+    keysToEnter.forEach(this.performEnter);
+
+    var keysToLeave = this.keysToLeave;
+    this.keysToLeave = [];
+    keysToLeave.forEach(this.performLeave);
+  };
+
+  ReactTransitionGroup.prototype.render = function render() {
+    // TODO: we could get rid of the need for the wrapper node
+    // by cloning a single child
+    var childrenToRender = [];
+    for (var key in this.state.children) {
+      var child = this.state.children[key];
+      if (child) {
+        // You may need to apply reactive updates to a child as it is leaving.
+        // The normal React way to do it won't work since the child will have
+        // already been removed. In case you need this behavior you can provide
+        // a childFactory function to wrap every child, even the ones that are
+        // leaving.
+        childrenToRender.push(React.cloneElement(this.props.childFactory(child), { ref: key, key: key }));
+      }
+    }
+
+    // Do not forward ReactTransitionGroup props to primitive DOM nodes
+    var props = _assign({}, this.props);
+    delete props.transitionLeave;
+    delete props.transitionName;
+    delete props.transitionAppear;
+    delete props.transitionEnter;
+    delete props.childFactory;
+    delete props.transitionLeaveTimeout;
+    delete props.transitionEnterTimeout;
+    delete props.transitionAppearTimeout;
+    delete props.component;
+
+    return React.createElement(this.props.component, props, childrenToRender);
+  };
+
+  return ReactTransitionGroup;
+}(React.Component);
+
+ReactTransitionGroup.displayName = 'ReactTransitionGroup';
+ReactTransitionGroup.propTypes = {
+  component: PropTypes.any,
+  childFactory: PropTypes.func
+};
+ReactTransitionGroup.defaultProps = {
+  component: 'span',
+  childFactory: emptyFunction.thatReturnsArgument
+};
+
+
+module.exports = ReactTransitionGroup;
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * 
+ */
+
+
+
+var KeyEscapeUtils = __webpack_require__(205);
+var traverseAllChildren = __webpack_require__(217);
+var warning = __webpack_require__(2);
+
+var ReactComponentTreeHook;
+
+if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'test') {
+  // Temporary hack.
+  // Inline requires don't work well with Jest:
+  // https://github.com/facebook/react/issues/7240
+  // Remove the inline requires when we don't need them anymore:
+  // https://github.com/facebook/react/pull/7178
+  ReactComponentTreeHook = __webpack_require__(7);
+}
+
+/**
+ * @param {function} traverseContext Context passed through traversal.
+ * @param {?ReactComponent} child React child component.
+ * @param {!string} name String name of key path to child.
+ * @param {number=} selfDebugID Optional debugID of the current internal instance.
+ */
+function flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID) {
+  // We found a component instance.
+  if (traverseContext && typeof traverseContext === 'object') {
+    var result = traverseContext;
+    var keyUnique = result[name] === undefined;
+    if (process.env.NODE_ENV !== 'production') {
+      if (!ReactComponentTreeHook) {
+        ReactComponentTreeHook = __webpack_require__(7);
+      }
+      if (!keyUnique) {
+        process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
+      }
+    }
+    if (keyUnique && child != null) {
+      result[name] = child;
+    }
+  }
+}
+
+/**
+ * Flattens children that are typically specified as `props.children`. Any null
+ * children will not be included in the resulting object.
+ * @return {!object} flattened children keyed by name.
+ */
+function flattenChildren(children, selfDebugID) {
+  if (children == null) {
+    return children;
+  }
+  var result = {};
+
+  if (process.env.NODE_ENV !== 'production') {
+    traverseAllChildren(children, function (traverseContext, child, name) {
+      return flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID);
+    }, result);
+  } else {
+    traverseAllChildren(children, flattenSingleChildIntoContext, result);
+  }
+  return result;
+}
+
+module.exports = flattenChildren;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

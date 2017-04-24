@@ -22,10 +22,7 @@ exports.submitQuote = function (req, res) {
 };
 
 exports.getQuote = function (req, res) {
-  var mood = req.body.mood;
-  var msg = req.body.message;
-
-  Quote.findOne({ mood: mood }, function (err, quote) {
-    console.log(quote);
+  Quote.findOne({'mood': 'Classic Jin' }, function (err, quote) {
+    res.status(200).send(quote);
   })
 };

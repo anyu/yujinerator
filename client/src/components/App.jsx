@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TransitionGroup from 'react-addons-transition-group';
 import axios from 'axios';
 
 import Header from './Header';
@@ -41,8 +42,11 @@ class App extends React.Component {
     });
   }
 
+  // DO I NEED TO WRAP THIS IN COMPONENT DID MOUNT ?!
   getQuote() {
-    axios.get('/submitquote')
+    axios.get('/quote', function(data) {
+      console.log(data);
+    })
     .then(function(response) {
       console.log(response),
       this.setState({
@@ -62,7 +66,7 @@ class App extends React.Component {
       submitSuccessComponent: true,
       submitQuoteShowComponent: false
     });
-    axios.post('/submitquote', {
+    axios.post('/quote', {
       message: this.state.quoteText,
       mood: this.state.mood
     })
@@ -85,7 +89,8 @@ class App extends React.Component {
 
           <Quote data = { this.props.data }
             quoteText = { this.state.quoteText }
-            mood = { this.state.mood } />
+            mood = { this.state.mood }
+            getQuote = { this.getQuote } />
 
           { this.state.submitQuoteShowComponent && < SubmitQuote
             quoteText = { this.state.quoteText }
