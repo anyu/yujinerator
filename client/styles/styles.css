@@ -10,7 +10,7 @@ h1 {
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: normal;
 }
 
@@ -65,9 +65,8 @@ button:hover {
 
 #quote-submission {
   font-size: 16px;
-  display: block;
   width: 100%;
-  height: 120px;
+  height: 60px;
   border: none;
   padding: 10px;
 }
@@ -100,7 +99,8 @@ p.rightQuoteMark {
 
 #submitQuote {
   clear: both;
-  margin-top: 150px;
+  text-align: left;
+  margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
   width: 600px;
@@ -109,8 +109,8 @@ p.rightQuoteMark {
 .message {
   width: 600px;
   display: inline-block;
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 30px;
+  line-height: 42px;
 }
 
 .quote-blurb {
@@ -118,17 +118,25 @@ p.rightQuoteMark {
   line-height: 25px;
   text-align: center;
   margin-top: 50px;
+  margin-bottom: 50px;
   margin-left: auto;
   margin-right: auto;
 }
 
 #submit-quote {
-  float: right;
-
+  position: absolute;
+  right: 290px;
 }
 
+#pickmood {
+  margin-right: 20px;
+}
 .step-one {
   float: left;
+}
+
+.thankyou {
+  margin-top: 80px;
 }
 
 select {
@@ -142,8 +150,10 @@ select {
 }
 
 footer {
-  clear: both;
-  margin-top: 150px;
-  margin-bottom: 120px;
-  /*background: #05353c;*/
+  width: 100%;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 100px;
+  background: #085f6b;
 }

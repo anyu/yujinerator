@@ -8,7 +8,7 @@ class SubmitSuccess extends React.Component {
   render() {
     return (
       <div className = "thankyou">
-        <h4>Approved by Tabitha</h4>
+        <h4>Thanks for your submission! Tabitha probably approves.</h4>
       </div>
     )
   }

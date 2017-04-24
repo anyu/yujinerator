@@ -27,7 +27,6 @@ exports.getQuote = function (req, res) {
     var random = Math.floor(Math.random() * count)
 
     Quote.findOne().skip(random).exec(function (err, quote) {
-      console.log(quote)
       res.status(200).send(quote);
     })
   })

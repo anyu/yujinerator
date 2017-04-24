@@ -31,12 +31,12 @@ class App extends React.Component {
     this.genRandomQuote();
   }
 
-  genRandomQuote() {
+  genRandomQuote(mood) {
     axios.get('/quote')
     .then( result => {
       this.setState({
         currentMessage: result.data.message,
-        mood: result.data.mood,
+        mood: result.data.mood
       });
     })
     .catch(function (error) {
@@ -87,12 +87,14 @@ class App extends React.Component {
         <div id="container">
           <Header />
           <hr />
-          <Nav jinButtons = { jinMoods } genRandomQuote = { this.genRandomQuote } />
 
           <Quote message = { this.state.currentMessage }
             mood = { this.state.mood }
             getQuote = { this.getQuote } />
 
+          <hr />
+          <Nav jinButtons = { jinMoods } genRandomQuote = { this.genRandomQuote } />
+    
           { this.state.submitQuoteShowComponent && < SubmitQuote
             message = { this.state.message }
             mood = { this.state.mood }
@@ -101,8 +103,9 @@ class App extends React.Component {
 
           { this.state.submitSuccessComponent && < SubmitSuccess /> }
 
-          <TinyNav toggleSubmitQuote = { this.toggleSubmitQuote } />
         </div>
+        <TinyNav toggleSubmitQuote = { this.toggleSubmitQuote } />
+
       </div>
     )
   }
