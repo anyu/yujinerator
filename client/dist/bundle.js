@@ -10374,9 +10374,9 @@ var App = function (_React$Component) {
     _this.state = {
       submitQuoteShowComponent: false,
       submitSuccessComponent: false,
-      mood: '',
-      quoteText: ''
-    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.getQuote = _this.getQuote.bind(_this);
+      message: '',
+      mood: ''
+    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this);
     return _this;
   }
 
@@ -10398,18 +10398,15 @@ var App = function (_React$Component) {
         submitSuccessComponent: !this.state.submitSuccessComponent
       });
     }
-
-    // DO I NEED TO WRAP THIS IN COMPONENT DID MOUNT ?!
-
   }, {
-    key: 'getQuote',
-    value: function getQuote() {
-      _axios2.default.get('/quote', function (data) {
-        console.log(data);
-      }).then(function (response) {
-        console.log(response), this.setState({
-          quoteText: response.data.quoteText,
-          mood: response.data.mood
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get('/quote').then(function (result) {
+        _this2.setState({
+          message: result.data.message,
+          mood: result.data.mood
         });
       }).catch(function (error) {
         console.log(error);
@@ -10419,13 +10416,13 @@ var App = function (_React$Component) {
     key: 'collectQuote',
     value: function collectQuote(text, mood) {
       this.setState({
-        quoteText: text,
+        message: text,
         mood: mood,
         submitSuccessComponent: true,
         submitQuoteShowComponent: false
       });
       _axios2.default.post('/quote', {
-        message: this.state.quoteText,
+        message: this.state.message,
         mood: this.state.mood
       }).then(function (response) {
         console.log(response);
@@ -10446,12 +10443,11 @@ var App = function (_React$Component) {
           _react2.default.createElement(_Header2.default, null),
           _react2.default.createElement('hr', null),
           _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods }),
-          _react2.default.createElement(_Quote2.default, { data: this.props.data,
-            quoteText: this.state.quoteText,
+          _react2.default.createElement(_Quote2.default, { message: this.state.message,
             mood: this.state.mood,
             getQuote: this.getQuote }),
           this.state.submitQuoteShowComponent && _react2.default.createElement(_SubmitQuote2.default, {
-            quoteText: this.state.quoteText,
+            message: this.state.message,
             mood: this.state.mood,
             collectQuote: this.collectQuote,
             collectMood: this.collectMood }),
@@ -11420,7 +11416,8 @@ var Quote = function (_React$Component) {
   _createClass(Quote, [{
     key: "render",
     value: function render() {
-      var randomNum = Math.floor(Math.random() * this.props.data.length);
+
+      var randomNum = Math.floor(Math.random() * 5);
       return _react2.default.createElement(
         "div",
         { className: "quote-blurb" },
@@ -11428,7 +11425,7 @@ var Quote = function (_React$Component) {
         _react2.default.createElement(
           "p",
           { className: "message" },
-          this.props.getQuote()
+          this.props.message
         ),
         _react2.default.createElement("p", { className: "rightQuoteMark" })
       );
@@ -11604,7 +11601,7 @@ var _data2 = _interopRequireDefault(_data);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_App2.default, { data: _data2.default }), document.getElementById('app'));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
 
 /***/ }),
 /* 115 */

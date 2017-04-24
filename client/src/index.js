@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import quotes from'../../db/data';
 
-ReactDOM.render(<App data = { quotes }/>, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

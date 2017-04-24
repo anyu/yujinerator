@@ -17,13 +17,12 @@ class App extends React.Component {
     this.state = {
       submitQuoteShowComponent: false,
       submitSuccessComponent: false,
-      mood: '',
-      quoteText: ''
+      message: '',
+      mood: ''
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
     this.toggleSubmitSuccess = this.toggleSubmitSuccess.bind(this),
-    this.collectQuote = this.collectQuote.bind(this),
-    this.getQuote = this.getQuote.bind(this)
+    this.collectQuote = this.collectQuote.bind(this)
   }
 
   toggleSubmitQuote(e) {
@@ -42,16 +41,12 @@ class App extends React.Component {
     });
   }
 
-  // DO I NEED TO WRAP THIS IN COMPONENT DID MOUNT ?!
-  getQuote() {
-    axios.get('/quote', function(data) {
-      console.log(data);
-    })
-    .then(function(response) {
-      console.log(response),
+  componentDidMount() {
+    axios.get('/quote')
+    .then( result => {
       this.setState({
-        quoteText: response.data.quoteText,
-        mood: response.data.mood,
+        message: result.data.message,
+        mood: result.data.mood,
       });
     })
     .catch(function (error) {
@@ -61,13 +56,13 @@ class App extends React.Component {
 
   collectQuote(text, mood) {
     this.setState({
-      quoteText: text,
+      message: text,
       mood: mood,
       submitSuccessComponent: true,
       submitQuoteShowComponent: false
     });
     axios.post('/quote', {
-      message: this.state.quoteText,
+      message: this.state.message,
       mood: this.state.mood
     })
     .then(function(response) {
@@ -87,13 +82,12 @@ class App extends React.Component {
           <hr />
           <Nav jinButtons = { jinMoods } />
 
-          <Quote data = { this.props.data }
-            quoteText = { this.state.quoteText }
+          <Quote message = { this.state.message }
             mood = { this.state.mood }
             getQuote = { this.getQuote } />
 
           { this.state.submitQuoteShowComponent && < SubmitQuote
-            quoteText = { this.state.quoteText }
+            message = { this.state.message }
             mood = { this.state.mood }
             collectQuote = { this.collectQuote }
             collectMood = { this.collectMood }/> }
