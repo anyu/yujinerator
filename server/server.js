@@ -23,8 +23,5 @@ app.get('/', function(req, res) {
 app.post('/', function (req, res) {
   res.send('Got a POST request')
 })
-
-// app.get('/submitquote', quotes.submitQuote);
-// app.get('/login', handler.loginUserForm);
-
+app.get('/submitquote', quotes.getQuote);
 app.post('/submitquote', quotes.submitQuote);

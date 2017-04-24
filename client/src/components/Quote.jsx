@@ -11,7 +11,7 @@ class Quote extends React.Component {
 
       <div className="quote-blurb">
           <p className="leftQuoteMark"></p>
-            <p className="message">{ this.props.data[randomNum].message }</p>
+            <p className="message">{ this.props.getQuote }</p>
           <p className="rightQuoteMark"></p>
       </div>
     )
