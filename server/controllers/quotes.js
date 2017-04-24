@@ -13,9 +13,12 @@ exports.submitQuote = function (req, res) {
   })
 
   newQuote.save(function(err) {
-    if(err) { console.log("Error saving quote") }
+    if (err) {
+      console.log("Error saving quote")
+    } else {
+      console.log('Quote submitted');
+    }
   })
-  console.log('Quote submitted');
 };
 
 exports.getQuote = function (req, res) {
