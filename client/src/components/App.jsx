@@ -1,22 +1,26 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+
 import Header from './Header';
 import Nav from './Nav';
 import Quote from './Quote';
 import SubmitQuote from './SubmitQuote';
+import SubmitSuccess from './SubmitSuccess';
 import TinyNav from './TinyNav';
-import axios from 'axios';
 
-import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitQuoteshowComponent: false,
+      submitQuoteShowComponent: false,
+      submitSuccessComponent: false,
       mood: '',
       quoteText: ''
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
+    this.toggleSubmitSuccess = this.toggleSubmitSuccess.bind(this),
     this.collectQuote = this.collectQuote.bind(this),
     this.getQuote = this.getQuote.bind(this)
   }
@@ -25,7 +29,15 @@ class App extends React.Component {
     { /* prevent link from navigating */ }
     e.preventDefault();
     this.setState({
-      submitQuoteshowComponent: !this.state.submitQuoteshowComponent
+      submitQuoteShowComponent: !this.state.submitQuoteShowComponent
+    });
+  }
+
+  toggleSubmitSuccess(e) {
+    { /* prevent link from navigating */ }
+    e.preventDefault();
+    this.setState({
+      submitSuccessComponent: !this.state.submitSuccessComponent
     });
   }
 
@@ -46,7 +58,9 @@ class App extends React.Component {
   collectQuote(text, mood) {
     this.setState({
       quoteText: text,
-      mood: mood
+      mood: mood,
+      submitSuccessComponent: true,
+      submitQuoteShowComponent: false
     });
     axios.post('/submitquote', {
       message: this.state.quoteText,
@@ -68,8 +82,19 @@ class App extends React.Component {
           <Header />
           <hr />
           <Nav jinButtons = { jinMoods } />
-          <Quote data = { this.props.data } quoteText = { this.state.quoteText } mood = { this.state.mood } />
-          { this.state.submitQuoteshowComponent && < SubmitQuote quoteText = { this.state.quoteText } mood = { this.state.mood } collectQuote = { this.collectQuote } collectMood = { this.collectMood }/> }
+
+          <Quote data = { this.props.data }
+            quoteText = { this.state.quoteText }
+            mood = { this.state.mood } />
+
+          { this.state.submitQuoteShowComponent && < SubmitQuote
+            quoteText = { this.state.quoteText }
+            mood = { this.state.mood }
+            collectQuote = { this.collectQuote }
+            collectMood = { this.collectMood }/> }
+
+          { this.state.submitSuccessComponent && < SubmitSuccess /> }
+
           <TinyNav toggleSubmitQuote = { this.toggleSubmitQuote } />
         </div>
       </div>

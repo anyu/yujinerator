@@ -10319,6 +10319,14 @@ var _react = __webpack_require__(15);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = __webpack_require__(53);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _axios = __webpack_require__(91);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Header = __webpack_require__(109);
 
 var _Header2 = _interopRequireDefault(_Header);
@@ -10335,17 +10343,13 @@ var _SubmitQuote = __webpack_require__(112);
 
 var _SubmitQuote2 = _interopRequireDefault(_SubmitQuote);
 
+var _SubmitSuccess = __webpack_require__(322);
+
+var _SubmitSuccess2 = _interopRequireDefault(_SubmitSuccess);
+
 var _TinyNav = __webpack_require__(113);
 
 var _TinyNav2 = _interopRequireDefault(_TinyNav);
-
-var _axios = __webpack_require__(91);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _reactDom = __webpack_require__(53);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10364,10 +10368,11 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      submitQuoteshowComponent: false,
+      submitQuoteShowComponent: false,
+      submitSuccessComponent: false,
       mood: '',
       quoteText: ''
-    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.getQuote = _this.getQuote.bind(_this);
+    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.getQuote = _this.getQuote.bind(_this);
     return _this;
   }
 
@@ -10377,7 +10382,16 @@ var App = function (_React$Component) {
       {/* prevent link from navigating */}
       e.preventDefault();
       this.setState({
-        submitQuoteshowComponent: !this.state.submitQuoteshowComponent
+        submitQuoteShowComponent: !this.state.submitQuoteShowComponent
+      });
+    }
+  }, {
+    key: 'toggleSubmitSuccess',
+    value: function toggleSubmitSuccess(e) {
+      {/* prevent link from navigating */}
+      e.preventDefault();
+      this.setState({
+        submitSuccessComponent: !this.state.submitSuccessComponent
       });
     }
   }, {
@@ -10397,7 +10411,9 @@ var App = function (_React$Component) {
     value: function collectQuote(text, mood) {
       this.setState({
         quoteText: text,
-        mood: mood
+        mood: mood,
+        submitSuccessComponent: true,
+        submitQuoteShowComponent: false
       });
       _axios2.default.post('/submitquote', {
         message: this.state.quoteText,
@@ -10421,8 +10437,15 @@ var App = function (_React$Component) {
           _react2.default.createElement(_Header2.default, null),
           _react2.default.createElement('hr', null),
           _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods }),
-          _react2.default.createElement(_Quote2.default, { data: this.props.data, quoteText: this.state.quoteText, mood: this.state.mood }),
-          this.state.submitQuoteshowComponent && _react2.default.createElement(_SubmitQuote2.default, { quoteText: this.state.quoteText, mood: this.state.mood, collectQuote: this.collectQuote, collectMood: this.collectMood }),
+          _react2.default.createElement(_Quote2.default, { data: this.props.data,
+            quoteText: this.state.quoteText,
+            mood: this.state.mood }),
+          this.state.submitQuoteShowComponent && _react2.default.createElement(_SubmitQuote2.default, {
+            quoteText: this.state.quoteText,
+            mood: this.state.mood,
+            collectQuote: this.collectQuote,
+            collectMood: this.collectMood }),
+          this.state.submitSuccessComponent && _react2.default.createElement(_SubmitSuccess2.default, null),
           _react2.default.createElement(_TinyNav2.default, { toggleSubmitQuote: this.toggleSubmitQuote })
         )
       );
@@ -26071,6 +26094,163 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(15);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SubmitSuccess = function (_React$Component) {
+  _inherits(SubmitSuccess, _React$Component);
+
+  function SubmitSuccess(props) {
+    _classCallCheck(this, SubmitSuccess);
+
+    return _possibleConstructorReturn(this, (SubmitSuccess.__proto__ || Object.getPrototypeOf(SubmitSuccess)).call(this, props));
+  }
+
+  _createClass(SubmitSuccess, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "thankyou" },
+        _react2.default.createElement(
+          "h4",
+          null,
+          "Approved by Tabitha"
+        )
+      );
+    }
+  }]);
+
+  return SubmitSuccess;
+}(_react2.default.Component);
+
+exports.default = SubmitSuccess;
 
 /***/ })
 /******/ ]);
