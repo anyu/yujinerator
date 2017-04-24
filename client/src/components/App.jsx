@@ -23,7 +23,25 @@ class App extends React.Component {
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
     this.toggleSubmitSuccess = this.toggleSubmitSuccess.bind(this),
-    this.collectQuote = this.collectQuote.bind(this)
+    this.collectQuote = this.collectQuote.bind(this),
+    this.genRandomQuote = this.genRandomQuote.bind(this)
+  }
+
+  componentDidMount() {
+    this.genRandomQuote();
+  }
+
+  genRandomQuote() {
+    axios.get('/quote')
+    .then( result => {
+      this.setState({
+        currentMessage: result.data.message,
+        mood: result.data.mood,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   toggleSubmitQuote(e) {
@@ -40,19 +58,6 @@ class App extends React.Component {
     e.preventDefault();
     this.setState({
       submitSuccessComponent: !this.state.submitSuccessComponent
-    });
-  }
-
-  componentDidMount() {
-    axios.get('/quote')
-    .then( result => {
-      this.setState({
-        currentMessage: result.data.message,
-        mood: result.data.mood,
-      });
-    })
-    .catch(function (error) {
-      console.log(error);
     });
   }
 
@@ -82,7 +87,7 @@ class App extends React.Component {
         <div id="container">
           <Header />
           <hr />
-          <Nav jinButtons = { jinMoods } />
+          <Nav jinButtons = { jinMoods } genRandomQuote = { this.genRandomQuote } />
 
           <Quote message = { this.state.currentMessage }
             mood = { this.state.mood }

@@ -21,7 +21,7 @@ class SubmitQuote extends React.Component {
           <h4>Get sassed by Yujin? You're not alone. Share your story.</h4>
 
           <textarea id = "quote-submission" placeholder = "Enter a quote..." ></textarea>
-          <label>Pick a JIN mood</label>
+          <label>Tag your quote</label>
             <select id ="dropdown"  >
              <option value="Classic Jin">Classic Jin</option>
              <option value="Ragejin'">Ragejin</option>

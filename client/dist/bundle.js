@@ -10297,7 +10297,7 @@ module.exports = [
   },
   {
   "mood": "Classic Jin",
-  "message": "I have some grease on my hands. Can I wipe it on your face?",
+  "message": "I have grease on my hands. Can I wipe it on your face?",
   },
 ]
 
@@ -10377,11 +10377,30 @@ var App = function (_React$Component) {
       mood: '',
       submitQuoteShowComponent: false,
       submitSuccessComponent: false
-    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this);
+    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.genRandomQuote = _this.genRandomQuote.bind(_this);
     return _this;
   }
 
   _createClass(App, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.genRandomQuote();
+    }
+  }, {
+    key: 'genRandomQuote',
+    value: function genRandomQuote() {
+      var _this2 = this;
+
+      _axios2.default.get('/quote').then(function (result) {
+        _this2.setState({
+          currentMessage: result.data.message,
+          mood: result.data.mood
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: 'toggleSubmitQuote',
     value: function toggleSubmitQuote(e) {
       {/* prevent link from navigating */}
@@ -10398,20 +10417,6 @@ var App = function (_React$Component) {
       e.preventDefault();
       this.setState({
         submitSuccessComponent: !this.state.submitSuccessComponent
-      });
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      _axios2.default.get('/quote').then(function (result) {
-        _this2.setState({
-          currentMessage: result.data.message,
-          mood: result.data.mood
-        });
-      }).catch(function (error) {
-        console.log(error);
       });
     }
   }, {
@@ -10444,7 +10449,7 @@ var App = function (_React$Component) {
           { id: 'container' },
           _react2.default.createElement(_Header2.default, null),
           _react2.default.createElement('hr', null),
-          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods }),
+          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods, genRandomQuote: this.genRandomQuote }),
           _react2.default.createElement(_Quote2.default, { message: this.state.currentMessage,
             mood: this.state.mood,
             getQuote: this.getQuote }),
@@ -11355,29 +11360,52 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(15);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Nav = function Nav(props) {
-  return _react2.default.createElement(
-    "div",
-    { className: "jinMood" },
-    _react2.default.createElement(
-      "ul",
-      null,
-      props.jinButtons.map(function (type, index) {
-        return _react2.default.createElement(
-          "button",
-          { key: index },
-          type
-        );
-      })
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Nav = function (_React$Component) {
+  _inherits(Nav, _React$Component);
+
+  function Nav(props) {
+    _classCallCheck(this, Nav);
+
+    return _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+  }
+
+  _createClass(Nav, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "jinMood" },
+        _react2.default.createElement(
+          "ul",
+          null,
+          this.props.jinButtons.map(function (mood, index) {
+            return _react2.default.createElement(
+              "button",
+              { key: index, onClick: this.props.genRandomQuote },
+              mood
+            );
+          }, this)
+        )
+      );
+    }
+  }]);
+
+  return Nav;
+}(_react2.default.Component);
 
 exports.default = Nav;
 
@@ -11500,7 +11528,7 @@ var SubmitQuote = function (_React$Component) {
           _react2.default.createElement(
             "label",
             null,
-            "Pick a JIN mood"
+            "Tag your quote"
           ),
           _react2.default.createElement(
             "select",
