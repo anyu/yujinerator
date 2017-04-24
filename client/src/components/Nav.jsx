@@ -8,11 +8,11 @@ class Nav extends React.Component {
   render() {
     return (
       <div className="jinMood">
-
-        <ul><span id ="pickmood">Gimme a quote:</span> 
-          {this.props.jinButtons.map(function(mood, index){
-            return <button key = {index} onClick={ this.props.genRandomQuote } value = {mood} >{mood}</button>;
-          },this)}
+        <ul><span id ="pickmood">Gimme a quote:</span>
+          <button onClick={ this.props.genRandomQuote } >{this.props.jinButtons[0]}</button>
+          <button onClick={ this.props.genRandomQuote2 } >{this.props.jinButtons[1]}</button>
+          <button onClick={ this.props.genRandomQuote3 } >{this.props.jinButtons[2]}</button>
+          <button onClick={ this.props.genRandomQuote4 } >{this.props.jinButtons[3]}</button>
         </ul>
       </div>
     )

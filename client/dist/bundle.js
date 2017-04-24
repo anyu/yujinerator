@@ -10623,7 +10623,7 @@ var App = function (_React$Component) {
       mood: '',
       submitQuoteShowComponent: false,
       submitSuccessComponent: false
-    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.genRandomQuote = _this.genRandomQuote.bind(_this);
+    }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.genRandomQuote = _this.genRandomQuote.bind(_this), _this.genRandomQuote2 = _this.genRandomQuote2.bind(_this), _this.genRandomQuote3 = _this.genRandomQuote3.bind(_this), _this.genRandomQuote4 = _this.genRandomQuote4.bind(_this);
     return _this;
   }
 
@@ -10634,7 +10634,7 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'genRandomQuote',
-    value: function genRandomQuote(mood) {
+    value: function genRandomQuote() {
       var _this2 = this;
 
       _axios2.default.get('/quote').then(function (result) {
@@ -10644,6 +10644,27 @@ var App = function (_React$Component) {
         });
       }).catch(function (error) {
         console.log(error);
+      });
+    }
+  }, {
+    key: 'genRandomQuote2',
+    value: function genRandomQuote2() {
+      this.setState({
+        currentMessage: "STOP CALLING ME EUGENE!!!!"
+      });
+    }
+  }, {
+    key: 'genRandomQuote3',
+    value: function genRandomQuote3() {
+      this.setState({
+        currentMessage: "I drink wine every day, but I don't know anything about wine."
+      });
+    }
+  }, {
+    key: 'genRandomQuote4',
+    value: function genRandomQuote4() {
+      this.setState({
+        currentMessage: "ERROR: Yujin has yet to say anything nice."
       });
     }
   }, {
@@ -10686,7 +10707,7 @@ var App = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var jinMoods = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'Eugene'];
+      var jinMoods = ['Classic Jin', 'Ragejin\'', 'Jin on Tap', 'Nice Jin'];
       return _react2.default.createElement(
         'div',
         null,
@@ -10699,8 +10720,13 @@ var App = function (_React$Component) {
             mood: this.state.mood,
             getQuote: this.getQuote }),
           _react2.default.createElement('hr', null),
-          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods, genRandomQuote: this.genRandomQuote }),
+          _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods,
+            genRandomQuote: this.genRandomQuote,
+            genRandomQuote2: this.genRandomQuote2,
+            genRandomQuote3: this.genRandomQuote3,
+            genRandomQuote4: this.genRandomQuote4 }),
           this.state.submitQuoteShowComponent && _react2.default.createElement(_SubmitQuote2.default, {
+            jinButtons: jinMoods,
             message: this.state.message,
             mood: this.state.mood,
             collectQuote: this.collectQuote,
@@ -11644,13 +11670,26 @@ var Nav = function (_React$Component) {
             { id: "pickmood" },
             "Gimme a quote:"
           ),
-          this.props.jinButtons.map(function (mood, index) {
-            return _react2.default.createElement(
-              "button",
-              { key: index, onClick: this.props.genRandomQuote, value: mood },
-              mood
-            );
-          }, this)
+          _react2.default.createElement(
+            "button",
+            { onClick: this.props.genRandomQuote },
+            this.props.jinButtons[0]
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.props.genRandomQuote2 },
+            this.props.jinButtons[1]
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.props.genRandomQuote3 },
+            this.props.jinButtons[2]
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.props.genRandomQuote4 },
+            this.props.jinButtons[3]
+          )
         )
       );
     }
@@ -11787,23 +11826,23 @@ var SubmitQuote = function (_React$Component) {
             { id: "dropdown" },
             _react2.default.createElement(
               "option",
-              { value: "Classic Jin" },
-              "Classic Jin"
+              { value: this.props.jinButtons[0] },
+              this.props.jinButtons[0]
             ),
             _react2.default.createElement(
               "option",
-              { value: "Ragejin'" },
-              "Ragejin"
+              { value: this.props.jinButtons[1] },
+              this.props.jinButtons[1]
             ),
             _react2.default.createElement(
               "option",
-              { value: "Nice Jin" },
-              "Nice Jin"
+              { value: this.props.jinButtons[2] },
+              this.props.jinButtons[2]
             ),
             _react2.default.createElement(
               "option",
-              { value: "Eugene" },
-              "Eugene"
+              { value: this.props.jinButtons[3] },
+              this.props.jinButtons[3]
             )
           ),
           _react2.default.createElement(

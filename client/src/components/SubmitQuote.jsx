@@ -23,10 +23,10 @@ class SubmitQuote extends React.Component {
           <textarea id = "quote-submission" placeholder = "Enter a quote..." ></textarea>
           <label>Tag your quote</label>
             <select id ="dropdown"  >
-             <option value="Classic Jin">Classic Jin</option>
-             <option value="Ragejin'">Ragejin</option>
-             <option value="Nice Jin">Nice Jin</option>
-             <option value="Eugene">Eugene</option>
+             <option value={this.props.jinButtons[0]}>{this.props.jinButtons[0]}</option>
+             <option value={this.props.jinButtons[1]}>{this.props.jinButtons[1]}</option>
+             <option value={this.props.jinButtons[2]}>{this.props.jinButtons[2]}</option>
+             <option value={this.props.jinButtons[3]}>{this.props.jinButtons[3]}</option>
            </select>
           <button id = "submit-quote">Submit</button>
         </form>

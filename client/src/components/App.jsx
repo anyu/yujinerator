@@ -24,14 +24,17 @@ class App extends React.Component {
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
     this.toggleSubmitSuccess = this.toggleSubmitSuccess.bind(this),
     this.collectQuote = this.collectQuote.bind(this),
-    this.genRandomQuote = this.genRandomQuote.bind(this)
+    this.genRandomQuote = this.genRandomQuote.bind(this),
+    this.genRandomQuote2 = this.genRandomQuote2.bind(this),
+    this.genRandomQuote3 = this.genRandomQuote3.bind(this),
+    this.genRandomQuote4 = this.genRandomQuote4.bind(this)
   }
 
   componentDidMount() {
     this.genRandomQuote();
   }
 
-  genRandomQuote(mood) {
+  genRandomQuote() {
     axios.get('/quote')
     .then( result => {
       this.setState({
@@ -41,6 +44,24 @@ class App extends React.Component {
     })
     .catch(function (error) {
       console.log(error);
+    });
+  }
+
+  genRandomQuote2() {
+    this.setState({
+      currentMessage: "STOP CALLING ME EUGENE!!!!"
+    });
+  }
+
+  genRandomQuote3() {
+    this.setState({
+      currentMessage: "I drink wine every day, but I don't know anything about wine."
+    });
+  }
+
+  genRandomQuote4() {
+    this.setState({
+      currentMessage: "ERROR: Yujin has yet to say anything nice."
     });
   }
 
@@ -81,7 +102,7 @@ class App extends React.Component {
   }
 
   render() {
-    var jinMoods = ['Classic Jin', 'Ragejin\'', 'Nice Jin', 'Eugene'];
+    var jinMoods = ['Classic Jin', 'Ragejin\'', 'Jin on Tap', 'Nice Jin'];
     return (
       <div>
         <div id="container">
@@ -93,9 +114,14 @@ class App extends React.Component {
             getQuote = { this.getQuote } />
 
           <hr />
-          <Nav jinButtons = { jinMoods } genRandomQuote = { this.genRandomQuote } />
-    
+          <Nav jinButtons = { jinMoods }
+            genRandomQuote = { this.genRandomQuote }
+            genRandomQuote2 = { this.genRandomQuote2 }
+            genRandomQuote3 = { this.genRandomQuote3 }
+            genRandomQuote4 = { this.genRandomQuote4 }  />
+
           { this.state.submitQuoteShowComponent && < SubmitQuote
+            jinButtons = { jinMoods }
             message = { this.state.message }
             mood = { this.state.mood }
             collectQuote = { this.collectQuote }
