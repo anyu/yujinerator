@@ -15,10 +15,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      submitQuoteShowComponent: false,
-      submitSuccessComponent: false,
+      currentMessage: '',
       message: '',
-      mood: ''
+      mood: '',
+      submitQuoteShowComponent: false,
+      submitSuccessComponent: false
     },
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
     this.toggleSubmitSuccess = this.toggleSubmitSuccess.bind(this),
@@ -29,7 +30,8 @@ class App extends React.Component {
     { /* prevent link from navigating */ }
     e.preventDefault();
     this.setState({
-      submitQuoteShowComponent: !this.state.submitQuoteShowComponent
+      submitQuoteShowComponent: !this.state.submitQuoteShowComponent,
+      submitSuccessComponent: false
     });
   }
 
@@ -45,7 +47,7 @@ class App extends React.Component {
     axios.get('/quote')
     .then( result => {
       this.setState({
-        message: result.data.message,
+        currentMessage: result.data.message,
         mood: result.data.mood,
       });
     })
@@ -82,7 +84,7 @@ class App extends React.Component {
           <hr />
           <Nav jinButtons = { jinMoods } />
 
-          <Quote message = { this.state.message }
+          <Quote message = { this.state.currentMessage }
             mood = { this.state.mood }
             getQuote = { this.getQuote } />
 

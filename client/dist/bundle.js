@@ -10372,10 +10372,11 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      submitQuoteShowComponent: false,
-      submitSuccessComponent: false,
+      currentMessage: '',
       message: '',
-      mood: ''
+      mood: '',
+      submitQuoteShowComponent: false,
+      submitSuccessComponent: false
     }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this);
     return _this;
   }
@@ -10386,7 +10387,8 @@ var App = function (_React$Component) {
       {/* prevent link from navigating */}
       e.preventDefault();
       this.setState({
-        submitQuoteShowComponent: !this.state.submitQuoteShowComponent
+        submitQuoteShowComponent: !this.state.submitQuoteShowComponent,
+        submitSuccessComponent: false
       });
     }
   }, {
@@ -10405,7 +10407,7 @@ var App = function (_React$Component) {
 
       _axios2.default.get('/quote').then(function (result) {
         _this2.setState({
-          message: result.data.message,
+          currentMessage: result.data.message,
           mood: result.data.mood
         });
       }).catch(function (error) {
@@ -10443,7 +10445,7 @@ var App = function (_React$Component) {
           _react2.default.createElement(_Header2.default, null),
           _react2.default.createElement('hr', null),
           _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods }),
-          _react2.default.createElement(_Quote2.default, { message: this.state.message,
+          _react2.default.createElement(_Quote2.default, { message: this.state.currentMessage,
             mood: this.state.mood,
             getQuote: this.getQuote }),
           this.state.submitQuoteShowComponent && _react2.default.createElement(_SubmitQuote2.default, {
@@ -11416,8 +11418,6 @@ var Quote = function (_React$Component) {
   _createClass(Quote, [{
     key: "render",
     value: function render() {
-
-      var randomNum = Math.floor(Math.random() * 5);
       return _react2.default.createElement(
         "div",
         { className: "quote-blurb" },

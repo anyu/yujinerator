@@ -22,7 +22,13 @@ exports.submitQuote = function (req, res) {
 };
 
 exports.getQuote = function (req, res) {
-  Quote.findOne({'mood': 'Classic Jin' }, function (err, quote) {
-    res.status(200).send(quote);
+
+  Quote.count().exec(function (err, count) {
+    var random = Math.floor(Math.random() * count)
+
+    Quote.findOne().skip(random).exec(function (err, quote) {
+      console.log(quote)
+      res.status(200).send(quote);
+    })
   })
 };
