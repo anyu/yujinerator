@@ -5,7 +5,7 @@ const db = require('./config');
 const quotes = require('./controllers/quotes')
 
 const PORT = process.env.PORT || 8080;
-const IP = '127.0.0.1';
+
 const app = express();
 
 app.use(bodyParser.json());
