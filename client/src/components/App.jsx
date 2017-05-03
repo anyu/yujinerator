@@ -16,8 +16,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentMessage: '',
-      message: '',
-      mood: '',
       submitQuoteShowComponent: false,
       submitSuccessComponent: false
     },
@@ -65,21 +63,19 @@ class App extends React.Component {
     });
   }
 
-  collectQuote(text, mood) {
-    this.setState({
-      message: text,
-      mood: mood,
-      submitSuccessComponent: true,
-      submitQuoteShowComponent: false
-    });
+  collectQuote(quote) {
     axios.post('/quote', {
-      message: this.state.message,
-      mood: this.state.mood
+      message: quote.message,
+      mood: quote.mood
     })
-    .then(function(response) {
-      console.log(response)
+    .then((response) => {
+      this.setState({
+        submitSuccessComponent: true,
+        submitQuoteShowComponent: false
+      });
+      console.log(response);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }
@@ -92,18 +88,14 @@ class App extends React.Component {
           <Header />
           <hr />
 
-          <Quote message = { this.state.currentMessage }
-            mood = { this.state.mood } />
+          <Quote message = {this.state.currentMessage}/>
 
           <hr />
           <Nav jinButtons = { jinMoods } genRandomQuote = { this.genRandomQuote } />
 
           { this.state.submitQuoteShowComponent && < SubmitQuote
             jinButtons = { jinMoods }
-            message = { this.state.message }
-            mood = { this.state.mood }
-            collectQuote = { this.collectQuote }
-            collectMood = { this.collectMood }/> }
+            collectQuote = { this.collectQuote } /> }
 
           { this.state.submitSuccessComponent && < SubmitSuccess /> }
 

@@ -1,10 +1,6 @@
 module.exports = [
   {
   "mood": "Classic Jin",
-  "message": "Hmm. Interesting.",
-  },
-  {
-  "mood": "Classic Jin",
   "message": "That Tabitha. Gotta put her in her place.",
   },
   {

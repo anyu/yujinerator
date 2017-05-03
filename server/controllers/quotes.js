@@ -2,24 +2,23 @@ var db = require('../config');
 var Quote = require('../models/quote');
 
 
-exports.submitQuote = function (req, res) {
-  console.log(req.body.message);
-  var mood = req.body.mood;
-  var msg = req.body.message;
+exports.submitQuote = ((req, res) => {
+    console.log('msg', req.body.message);
+    console.log('mood', req.body.mood);
 
   var newQuote = new Quote({
-    mood: mood,
-    message: msg
+    mood: req.body.mood,
+    message: req.body.message
   })
 
-  newQuote.save(function(err) {
+  newQuote.save((err) => {
     if (err) {
-      console.log("Error saving quote")
+      console.log("Error saving quote", err)
     } else {
       console.log('Quote submitted');
     }
   })
-};
+});
 
 exports.getQuote = function (req, res) {
   console.log("req", req.query.mood);
