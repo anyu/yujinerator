@@ -10523,8 +10523,6 @@ var App = function (_React$Component) {
 
     _this.state = {
       currentMessage: '',
-      message: '',
-      mood: '',
       submitQuoteShowComponent: false,
       submitSuccessComponent: false
     }, _this.toggleSubmitQuote = _this.toggleSubmitQuote.bind(_this), _this.toggleSubmitSuccess = _this.toggleSubmitSuccess.bind(_this), _this.collectQuote = _this.collectQuote.bind(_this), _this.genRandomQuote = _this.genRandomQuote.bind(_this);
@@ -10546,9 +10544,9 @@ var App = function (_React$Component) {
         params: {
           mood: mood
         }
-      }).then(function (result) {
+      }).then(function (response) {
         _this2.setState({
-          currentMessage: result.data.message
+          currentMessage: response.data.message
         });
       }).catch(function (error) {
         console.log(error);
@@ -10566,27 +10564,23 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'toggleSubmitSuccess',
-    value: function toggleSubmitSuccess(e) {
-      {/* prevent link from navigating */}
-      e.preventDefault();
+    value: function toggleSubmitSuccess() {
       this.setState({
-        submitSuccessComponent: !this.state.submitSuccessComponent
+        submitQuoteShowComponent: !this.state.submitQuoteShowComponent,
+        submitSuccessComponent: true
       });
     }
   }, {
     key: 'collectQuote',
-    value: function collectQuote(text, mood) {
-      this.setState({
-        message: text,
-        mood: mood,
-        submitSuccessComponent: true,
-        submitQuoteShowComponent: false
-      });
+    value: function collectQuote(quote, e) {
+      e.preventDefault();
+
+      this.toggleSubmitSuccess();
       _axios2.default.post('/quote', {
-        message: this.state.message,
-        mood: this.state.mood
+        message: quote.message,
+        mood: quote.mood
       }).then(function (response) {
-        console.log(response);
+        console.log('response');
       }).catch(function (error) {
         console.log(error);
       });
@@ -10603,16 +10597,12 @@ var App = function (_React$Component) {
           { id: 'container' },
           _react2.default.createElement(_Header2.default, null),
           _react2.default.createElement('hr', null),
-          _react2.default.createElement(_Quote2.default, { message: this.state.currentMessage,
-            mood: this.state.mood }),
+          _react2.default.createElement(_Quote2.default, { message: this.state.currentMessage }),
           _react2.default.createElement('hr', null),
           _react2.default.createElement(_Nav2.default, { jinButtons: jinMoods, genRandomQuote: this.genRandomQuote }),
           this.state.submitQuoteShowComponent && _react2.default.createElement(_SubmitQuote2.default, {
             jinButtons: jinMoods,
-            message: this.state.message,
-            mood: this.state.mood,
-            collectQuote: this.collectQuote,
-            collectMood: this.collectMood }),
+            collectQuote: this.collectQuote }),
           this.state.submitSuccessComponent && _react2.default.createElement(_SubmitSuccess2.default, null)
         ),
         _react2.default.createElement(_TinyNav2.default, { toggleSubmitQuote: this.toggleSubmitQuote })
@@ -11492,7 +11482,7 @@ var Header = function Header(props) {
     _react2.default.createElement(
       "h1",
       null,
-      "yuge drops"
+      "yujinerator"
     ),
     _react2.default.createElement(
       "h4",
@@ -11541,6 +11531,8 @@ var Nav = function (_React$Component) {
   _createClass(Nav, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         "div",
         { className: "jinMood" },
@@ -11553,12 +11545,10 @@ var Nav = function (_React$Component) {
             "Gimme a quote:"
           ),
           this.props.jinButtons.map(function (mood, index) {
-            var _this2 = this;
-
             return _react2.default.createElement(
               "button",
               { key: index, onClick: function onClick() {
-                  return _this2.props.genRandomQuote(_this2.props.jinButtons[index]);
+                  return _this2.props.genRandomQuote(mood);
                 }, value: mood },
               mood
             );
@@ -11648,6 +11638,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -11660,68 +11652,62 @@ var SubmitQuote = function (_React$Component) {
   function SubmitQuote(props) {
     _classCallCheck(this, SubmitQuote);
 
-    return _possibleConstructorReturn(this, (SubmitQuote.__proto__ || Object.getPrototypeOf(SubmitQuote)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SubmitQuote.__proto__ || Object.getPrototypeOf(SubmitQuote)).call(this, props));
+
+    _this.state = {
+      message: '',
+      mood: 'Classic Jin'
+    };
+    return _this;
   }
 
   _createClass(SubmitQuote, [{
-    key: "render",
+    key: 'handleInputChange',
+    value: function handleInputChange(e) {
+      var name = e.target.name;
+      var value = e.target.value;
+
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: 'render',
     value: function render() {
       var _this2 = this;
 
       return _react2.default.createElement(
-        "div",
-        { className: "quote" },
+        'div',
+        { className: 'quote' },
         _react2.default.createElement(
-          "form",
-          {
-            id: "submitQuote",
-            action: "",
-            onSubmit: function onSubmit(e) {
-              e.preventDefault();
-              var inputQuote = document.getElementById('quote-submission').value;
-              var inputMood = document.getElementById('dropdown').value;
-              _this2.props.collectQuote(inputQuote, inputMood);
-            }
-          },
+          'form',
+          { id: 'submitQuote', action: '', onSubmit: function onSubmit(e) {
+              return _this2.props.collectQuote(_this2.state, e);
+            } },
           _react2.default.createElement(
-            "h4",
+            'h4',
             null,
-            "Get sassed by Yujin? You're not alone. Share your story."
+            'Get sassed by Yujin? You\'re not alone. Share your story.'
           ),
-          _react2.default.createElement("textarea", { id: "quote-submission", placeholder: "Enter a quote..." }),
+          _react2.default.createElement('textarea', { id: 'quote-submission', name: 'message', placeholder: 'Enter a quote...', onChange: this.handleInputChange.bind(this) }),
           _react2.default.createElement(
-            "label",
+            'label',
             null,
-            "Tag your quote"
+            'Tag your quote'
           ),
           _react2.default.createElement(
-            "select",
-            { id: "dropdown" },
-            _react2.default.createElement(
-              "option",
-              { value: this.props.jinButtons[0] },
-              this.props.jinButtons[0]
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: this.props.jinButtons[1] },
-              this.props.jinButtons[1]
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: this.props.jinButtons[2] },
-              this.props.jinButtons[2]
-            ),
-            _react2.default.createElement(
-              "option",
-              { value: this.props.jinButtons[3] },
-              this.props.jinButtons[3]
-            )
+            'select',
+            { id: 'dropdown', name: 'mood', onChange: this.handleInputChange.bind(this) },
+            this.props.jinButtons.map(function (mood, index) {
+              return _react2.default.createElement(
+                'option',
+                { key: index, value: mood },
+                mood
+              );
+            })
           ),
           _react2.default.createElement(
-            "button",
-            { id: "submit-quote" },
-            "Submit"
+            'button',
+            { id: 'submit-quote' },
+            'Submit'
           )
         )
       );
@@ -11813,8 +11799,10 @@ var TinyNav = function TinyNav(props) {
       null,
       _react2.default.createElement(
         "a",
-        { href: "/", onClick: props.toggleSubmitQuote },
-        "Submit a quote"
+        { href: "/", onClick: function onClick(e) {
+            return props.toggleSubmitQuote(e);
+          } },
+        " Submit a quote"
       )
     )
   );
@@ -11842,8 +11830,6 @@ var _App = __webpack_require__(91);
 var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//import quotes from'../../db/data';
 
 _reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
 
