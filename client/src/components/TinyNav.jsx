@@ -2,7 +2,7 @@ import React from 'react';
 
 var TinyNav = (props) => (
   <footer>
-    <div><a href="/" onClick = { () => props.toggleSubmitQuote() } >Submit a quote</a></div>
+    <div><a href="/" onClick = { (e)=> props.toggleSubmitQuote(e) } > Submit a quote</a></div>
   </footer>
 );
 

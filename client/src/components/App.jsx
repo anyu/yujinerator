@@ -36,12 +36,12 @@ class App extends React.Component {
         mood: mood
       }
     })
-    .then( result => {
+    .then((response) => {
       this.setState({
-        currentMessage: result.data.message,
+        currentMessage: response.data.message,
       });
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }
@@ -55,25 +55,23 @@ class App extends React.Component {
     });
   }
 
-  toggleSubmitSuccess(e) {
-    { /* prevent link from navigating */ }
-    e.preventDefault();
+  toggleSubmitSuccess() {
     this.setState({
-      submitSuccessComponent: !this.state.submitSuccessComponent
+      submitQuoteShowComponent: !this.state.submitQuoteShowComponent,
+      submitSuccessComponent: true
     });
   }
 
-  collectQuote(quote) {
+  collectQuote(quote, e) {
+    e.preventDefault();
+
+    this.toggleSubmitSuccess();
     axios.post('/quote', {
       message: quote.message,
       mood: quote.mood
     })
     .then((response) => {
-      this.setState({
-        submitSuccessComponent: true,
-        submitQuoteShowComponent: false
-      });
-      console.log(response);
+      console.log('response');
     })
     .catch((error) => {
       console.log(error);
