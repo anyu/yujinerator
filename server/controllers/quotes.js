@@ -23,7 +23,7 @@ exports.submitQuote = function (req, res) {
 
 exports.getQuote = function (req, res) {
   console.log("req", req.query.mood);
-  Quote.count().exec(function (err, count) {
+  Quote.count({'mood': req.query.mood}).exec(function (err, count) {
     var random = Math.floor(Math.random() * count)
     Quote.findOne({'mood': req.query.mood}).skip(random).exec(function (err, quote) {
       res.status(200).send(quote);
