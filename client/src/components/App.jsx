@@ -24,44 +24,27 @@ class App extends React.Component {
     this.toggleSubmitQuote = this.toggleSubmitQuote.bind(this),
     this.toggleSubmitSuccess = this.toggleSubmitSuccess.bind(this),
     this.collectQuote = this.collectQuote.bind(this),
-    this.genRandomQuote = this.genRandomQuote.bind(this),
-    this.genRandomQuote2 = this.genRandomQuote2.bind(this),
-    this.genRandomQuote3 = this.genRandomQuote3.bind(this),
-    this.genRandomQuote4 = this.genRandomQuote4.bind(this)
+    this.genRandomQuote = this.genRandomQuote.bind(this)
   }
 
   componentDidMount() {
-    this.genRandomQuote();
+    var defaultMood = "Classic Jin";
+    this.genRandomQuote(defaultMood);
   }
 
-  genRandomQuote() {
-    axios.get('/quote')
+  genRandomQuote(mood) {
+    axios.get('/quote', {
+      params: {
+        mood: mood
+      }
+    })
     .then( result => {
       this.setState({
         currentMessage: result.data.message,
-        mood: result.data.mood
       });
     })
     .catch(function (error) {
       console.log(error);
-    });
-  }
-
-  genRandomQuote2() {
-    this.setState({
-      currentMessage: "STOP CALLING ME EUGENE!!!!"
-    });
-  }
-
-  genRandomQuote3() {
-    this.setState({
-      currentMessage: "I drink wine every day, but I don't know anything about wine."
-    });
-  }
-
-  genRandomQuote4() {
-    this.setState({
-      currentMessage: "ERROR: Yujin has yet to say anything nice."
     });
   }
 
@@ -110,15 +93,10 @@ class App extends React.Component {
           <hr />
 
           <Quote message = { this.state.currentMessage }
-            mood = { this.state.mood }
-            getQuote = { this.getQuote } />
+            mood = { this.state.mood } />
 
           <hr />
-          <Nav jinButtons = { jinMoods }
-            genRandomQuote = { this.genRandomQuote }
-            genRandomQuote2 = { this.genRandomQuote2 }
-            genRandomQuote3 = { this.genRandomQuote3 }
-            genRandomQuote4 = { this.genRandomQuote4 }  />
+          <Nav jinButtons = { jinMoods } genRandomQuote = { this.genRandomQuote } />
 
           { this.state.submitQuoteShowComponent && < SubmitQuote
             jinButtons = { jinMoods }

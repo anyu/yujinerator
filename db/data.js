@@ -87,4 +87,8 @@ module.exports = [
   "mood": "Classic Jin",
   "message": "I have grease on my hands. Can I wipe it on your face?",
   },
+  {
+  "mood": "Classic Jin",
+  "message": "Sigh. Poor yujin."
+  }
 ]
